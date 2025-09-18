@@ -33,8 +33,8 @@ public class Directivo extends Padre {
 
 	@Override
 	public String toString() {
-		return "DNI: " + dni + " ,Nombre: " + nombre + " ,Apellido: " + apellidos + " ,Salario: " + salario
-				+ " ,Es salesiano: " + esSalesiano + ", Turno: " + turno;
+		return " - DNI: " + dni + "\n - Nombre: " + nombre + "\n - Apellido: " + apellidos + "\n - Salario: " + salario
+				+ "\n - Es salesiano: " + esSalesiano + "\n - Turno: " + turno;
 	}
 
 }

@@ -34,8 +34,8 @@ public class Profesor extends Padre {
 
 	@Override
 	public String toString() {
-		return "DNI: " + dni + " ,Nombre: " + nombre + " ,Apellido: " + apellidos + " ,Salario: " + salario
-				+ " ,Numero asignaturas: " + numeroAsignaturas + " ,Es tutor: " + esTutor;
+		return " - DNI: " + dni + "\n - Nombre: " + nombre + "\n - Apellido: " + apellidos + "\n - Salario: " + salario
+				+ "\n - Numero asignaturas: " + numeroAsignaturas + "\n - Es tutor: " + esTutor;
 	}
 
 }

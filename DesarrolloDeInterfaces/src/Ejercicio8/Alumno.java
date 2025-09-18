@@ -10,7 +10,7 @@ public class Alumno {
 	String fechaNacimiento;
 	Sexo sexo;
 	boolean repetidor;
-	ArrayList<Modulo> modulos;
+	ArrayList<Modulo> modulos ;
 
 	public Alumno(String dni, String nombre, String apellidos, String fechaNacimiento, Sexo sexo, boolean repetidor) {
 		super();
@@ -26,6 +26,8 @@ public class Alumno {
 
 	public Alumno() {
 		super();
+		this.modulos = new ArrayList<Modulo>();
+
 	}
 
 	public void añadirModulo(Modulo modulo) {
@@ -95,10 +97,10 @@ public class Alumno {
 				modulosAlumnos += modulo + "\n";
 			}
 		}
-		sb.append("==Alumno==\n").append("|DNI: " + dni).append(" |Nombre: " + nombre)
-				.append(" |Apellidos: " + apellidos).append(" |Fecha de nacimiento: " + fechaNacimiento)
-				.append(" |Sexo: " + sexo).append(" |Repetidor: " + repetidor + " |")
-				.append("\n==Modulos==\n" + modulosAlumnos);
+		sb.append(" - DNI: " + dni).append("\n - Nombre: " + nombre)
+				.append("\n - Apellidos: " + apellidos).append("\n - Fecha de nacimiento: " + fechaNacimiento)
+				.append("\n - Sexo: " + sexo).append("\n - Repetidor: " + repetidor + "")
+				.append("\n - Modulos: " + modulosAlumnos);
 
 		return sb.toString();
 	}

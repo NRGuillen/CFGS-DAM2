@@ -34,8 +34,13 @@ public class Administracion extends Padre {
 
 	@Override
 	public String toString() {
-		return "DNI: " + dni + " ,Nombre: " + nombre + " ,Apellido: " + apellidos + " ,Salario: " + salario
-				+ " ,Estudios: " + estudios + ", Antiguedad: " + antiguedad + " años";
+		return " - DNI: " + dni 
+				+ "\n - nNombre: " + nombre 
+				+ "\n - Apellido: " + apellidos 
+				+ "\n - Salario: " + salario
+				+ "\n - Estudios: " + estudios 
+				+ "\n - Antiguedad: " + antiguedad 
+				+ " años";
 	}
 
 }

@@ -53,8 +53,8 @@ public class Modulo {
 
 	@Override
 	public String toString() {
-		return "Nombre modulo: " + nombre + ", Horas del modulo: " + numeroHoras + ", Nombre profesor: "
-				+ nombreProfesor + ", Es convalidable: " + esConvaldable;
+		return " - Nombre modulo: " + nombre + " - Horas del modulo: " + numeroHoras + " - Nombre profesor: "
+				+ nombreProfesor + " - Es convalidable: " + esConvaldable;
 	}
 
 }
