@@ -13,7 +13,7 @@ public class mainEjercicio {
 		Scanner scanner = new Scanner(System.in);
 
 		Profesor profesor = new Profesor("123432W", "Juan", "Domingez sales", 1230.42, 2, true);
-		Profesor profesor2 = new Profesor("123432W", "Juan", "Domingez sales", 1230.42, 2, true);
+		Profesor profesor2 = new Profesor("123432W", "Ruben", "Domingez sales", 1230.42, 2, true);
 		profesores.add(profesor);
 		profesores.add(profesor2);
 
@@ -155,15 +155,37 @@ public class mainEjercicio {
 					break;
 				}
 
-				System.out.println("Introduce el nombre del modulo al que el alumno quiere apuntarse");			
-				
-				//FALTA TERMINAR MODULOS
-				//FALTA TERMINAR MODULOS
-				//FALTA TERMINAR MODULOS
-				//FALTA TERMINAR MODULOS
-				
-				System.out.println("Alumno/a añadido: " + alum);
+				System.out.println("Introduce el nombre del modulo al que el alumno quiere apuntarse");
 
+				// FALTA TERMINAR MODULOS
+				// FALTA TERMINAR MODULOS
+				if (modulos != null) {
+
+					for (Modulo modulo : modulos) {
+						System.out.println(modulo);
+					}
+
+				}
+
+				scanner.nextLine();
+				
+				String modulo = scanner.nextLine().toLowerCase().trim();
+
+				if (modulos != null) {
+
+					for (Modulo moduloss : modulos) {
+
+						if (modulo.equals(moduloss.getNombre().toLowerCase().trim())) {
+							alum.setModulos(moduloss);
+						}
+
+					}
+
+				}
+				// FALTA TERMINAR MODULOS
+				// FALTA TERMINAR MODULOS
+
+				System.out.println("Alumno/a añadido: " + alum);
 
 				break;
 
@@ -254,9 +276,7 @@ public class mainEjercicio {
 					for (Profesor profesor3 : profesores) {
 						if (modNombreProfesor.equals(profesor3.getNombre())) {
 							mod.setNombreProfesor(modNombreProfesor);
-						} else {
-							System.out.println("No existe el profesor");
-						}
+						} 
 					}
 				}
 				mod.setNombre(modNombreProfesor);
