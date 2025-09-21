@@ -23,7 +23,7 @@ public class ejercicio3 {
 
 				String linea = buffer.readLine().replaceAll(" ", "");
 				while (linea != null) {
-					System.out.println("Contenido: " + linea);
+					System.out.println("Campo: " + linea);
 				
 					linea = buffer.readLine();
 				}
