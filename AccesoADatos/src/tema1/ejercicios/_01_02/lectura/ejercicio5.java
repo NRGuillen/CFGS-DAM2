@@ -1,4 +1,4 @@
-package tema1.ejercicios._02._02.lectura;
+package tema1.ejercicios._01_02.lectura;
 
 import java.io.*;
 import java.util.Arrays;

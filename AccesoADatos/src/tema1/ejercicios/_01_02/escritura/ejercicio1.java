@@ -1,4 +1,4 @@
-package tema1.ejercicios._02._02.escritura;
+package tema1.ejercicios._01_02.escritura;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -10,7 +10,6 @@ public class ejercicio1 {
 
 	public static void main(String[] args) {
 
-		int contador = 0;
 		ArrayList<String> primos = new ArrayList<>();
 		for (int i = 2; i < 500; i++) {
 			boolean esPrimo = true;
@@ -26,7 +25,6 @@ public class ejercicio1 {
 			if (esPrimo) {
 				System.out.println("Primo -> " + i);
 
-				contador++;
 				Integer primo = i;
 				primos.add(primo.toString());
 			}
@@ -35,8 +33,13 @@ public class ejercicio1 {
 		File archivoPrimos = new File("primos.txt");
 
 		try {
-			FileWriter escribirOrdenado = new FileWriter(archivoPrimos);
-			BufferedWriter bufferEscritura = new BufferedWriter(escribirOrdenado);
+			if (!archivoPrimos.exists()) {
+				archivoPrimos.createNewFile();
+
+			}
+
+			FileWriter escribirOrdenado = new FileWriter(archivoPrimos); //abre el fichero para escritura
+			BufferedWriter bufferEscritura = new BufferedWriter(escribirOrdenado); //escribe en el fichero
 
 			for (int i = 0; i < primos.size(); i++) {
 				bufferEscritura.write(primos.get(i));
@@ -44,7 +47,8 @@ public class ejercicio1 {
 			}
 
 			bufferEscritura.close();
-
+			escribirOrdenado.close();
+			
 			System.out.println("Archivo creado correctamente");
 
 		} catch (IOException e) {

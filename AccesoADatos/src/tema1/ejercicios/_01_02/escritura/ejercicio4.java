@@ -1,4 +1,4 @@
-package tema1.ejercicios._02._02.escritura;
+package tema1.ejercicios._01_02.escritura;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

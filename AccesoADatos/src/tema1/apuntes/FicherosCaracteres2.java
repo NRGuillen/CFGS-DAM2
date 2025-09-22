@@ -1,4 +1,4 @@
-package tema1;
+package tema1.apuntes;
 
 import java.io.*;
 

@@ -1,4 +1,4 @@
-package tema1.ejercicios;
+package tema1.ejercicios._01_01;
 
 import java.io.*;
 import java.util.Scanner;
@@ -11,13 +11,18 @@ public class ejercicio1 {
 		System.out.println("Introduce el directorio");
 		File directorio = new File(scanner.nextLine());
 
-		if (directorio.exists()) {
+		if (directorio.exists() && directorio.isDirectory()) {
 			String[] ficheros = directorio.list();
 
-			for (int i = 0; i < ficheros.length; i++) {
+			if (ficheros != null) {
 
-				System.out.println(ficheros[i]);
+				for (int i = 0; i < ficheros.length; i++) {
 
+					System.out.println(ficheros[i]);
+
+				}
+			}else {
+				System.out.println("No hay contenido en el directorio dado");
 			}
 
 		} else {
