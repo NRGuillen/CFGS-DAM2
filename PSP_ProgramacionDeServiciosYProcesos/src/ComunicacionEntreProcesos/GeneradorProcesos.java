@@ -7,13 +7,13 @@ public class GeneradorProcesos {
 
 	public void ejecutar(String ruta) {
 
-		Runtime rt = Runtime.getRuntime(); // hace lo mismo que el processbuilder, pero processbuilder tiene mas metodos
-		Process proceso = null; // clase hijo
+		Runtime rt = Runtime.getRuntime();
+		Process proceso = null; 
 		String linea;
 
 		try {
-			proceso = rt.exec(ruta); // ejecuta el programa del tiron
-			BufferedReader br = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+			proceso = rt.exec(ruta); //Ejecuta el programa que le hayamos puesto en la ruta
+			BufferedReader br = new BufferedReader(new InputStreamReader(proceso.getInputStream())); //lector de buffer que permite leer la salida del proceso
 
 			while ((linea = br.readLine()) != null) {
 				System.out.println(linea);

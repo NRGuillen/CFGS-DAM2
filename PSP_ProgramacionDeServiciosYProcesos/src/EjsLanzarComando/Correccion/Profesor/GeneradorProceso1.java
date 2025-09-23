@@ -22,6 +22,16 @@ public class GeneradorProceso1 {
 		}
 
 		ProcessBuilder pb = new ProcessBuilder(nombreArgumentos);
+
+		/*¿Porque se ejecuta ipconfig /all y no ipconfig y luego all por separado (ya que estan en una lista no en un string)?
+		 * 
+		 * new ProcessBuilder("ping", "google.com", "-n", "3")
+		 * 
+		 * el sistema recibe: ping google.com -n 3
+		 *
+		 *Conclusion: ProcessBuilder combina ambos en una unica llamada al proceso: ipconfig /all.
+		 */
+
 		pb.command(nombreArgumentos);
 
 		pb.inheritIO(); // Hace que el rpcoeso herede la E/S estandar del proceso padre, Asi podemos ver
