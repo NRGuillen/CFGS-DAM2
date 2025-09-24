@@ -21,6 +21,9 @@ public class ejercicio4 {
 		System.out.println("Introduce el segundo archivo que quieres combinar con el primero, AÑADE .txt");
 		String archivo2 = scanner.nextLine();
 
+		System.out.print("Introduce la ruta donde quieres guardar el nuevo archivo:");
+		String ruta = scanner.nextLine();
+
 		File archivoCopiar1 = new File(archivo1);
 		File archivoCopiar2 = new File(archivo2);
 
@@ -44,66 +47,72 @@ public class ejercicio4 {
 		 */
 
 		String nombre1 = archivoCopiar1.getName().split("\\.")[0]; // Sin el getName, te daria toda la ruta
-																	// c:/Windows/.txt, con el getname directamente el
+																	// c:/Windows/.txt, con el getname directamente
+																	// el
 																	// txt
 		String nombre2 = archivoCopiar2.getName().split("\\.")[0];
 
 		String nuevoArchivo = nombre1 + "_" + nombre2 + ".txt";
 
-		try {
+		if (archivoCopiar1.exists() && archivoCopiar2.exists()) {
 
-			FileReader leerArchivo1 = new FileReader(archivoCopiar1);
-			FileReader leerArchivo2 = new FileReader(archivoCopiar2);
+			try {
 
-			BufferedReader bufferleerArchivo1 = new BufferedReader(leerArchivo1);
-			BufferedReader bufferleerArchivo2 = new BufferedReader(leerArchivo2);
+				FileReader leerArchivo1 = new FileReader(archivoCopiar1);
+				FileReader leerArchivo2 = new FileReader(archivoCopiar2);
 
-			String linea = bufferleerArchivo1.readLine();
-			String linea2 = bufferleerArchivo2.readLine();
+				BufferedReader bufferleerArchivo1 = new BufferedReader(leerArchivo1);
+				BufferedReader bufferleerArchivo2 = new BufferedReader(leerArchivo2);
 
-			while (linea != null) {
-				System.out.println(linea);
-				nuevoArchivotxt.add(linea);
-				linea = bufferleerArchivo1.readLine();
+				String linea = bufferleerArchivo1.readLine();
+				String linea2 = bufferleerArchivo2.readLine();
+
+				while (linea != null) {
+					System.out.println(linea);
+					nuevoArchivotxt.add(linea);
+					linea = bufferleerArchivo1.readLine();
+				}
+				while (linea2 != null) {
+					System.out.println(linea2);
+					nuevoArchivotxt.add(linea2);
+					linea2 = bufferleerArchivo2.readLine();
+
+				}
+
+				leerArchivo1.close();
+				leerArchivo2.close();
+				bufferleerArchivo1.close();
+				bufferleerArchivo2.close();
+
+				File nuevoArhivoFinal = new File(ruta, nuevoArchivo);
+				FileWriter escribirNum1 = new FileWriter(nuevoArhivoFinal);
+				BufferedWriter bufferEscrituraNuevo = new BufferedWriter(escribirNum1);
+
+				for (int i = 0; i < nuevoArchivotxt.size(); i++) {
+
+					bufferEscrituraNuevo.write(nuevoArchivotxt.get(i));
+					bufferEscrituraNuevo.newLine();
+
+				}
+
+				bufferEscrituraNuevo.close();
+				escribirNum1.close();
+
+				for (int i = 0; i < nuevoArchivotxt.size(); i++) {
+
+					System.out.println(i);
+
+				}
+
+				System.out.println("Archivo creado correctamente");
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			while (linea2 != null) {
-				System.out.println(linea2);
-				nuevoArchivotxt.add(linea2);
-				linea2 = bufferleerArchivo2.readLine();
-
-			}
-
-			leerArchivo1.close();
-			leerArchivo2.close();
-			bufferleerArchivo1.close();
-			bufferleerArchivo2.close();
-
-			FileWriter escribirNum1 = new FileWriter(nuevoArchivo);
-			BufferedWriter bufferEscrituraNuevo = new BufferedWriter(escribirNum1);
-
-			for (int i = 0; i < nuevoArchivotxt.size(); i++) {
-
-				bufferEscrituraNuevo.write(nuevoArchivotxt.get(i));
-				bufferEscrituraNuevo.newLine();
-
-			}
-
-			bufferEscrituraNuevo.close();
-			escribirNum1.close();
-
-			for (int i = 0; i < nuevoArchivotxt.size(); i++) {
-
-				System.out.println(i);
-
-			}
-
-			System.out.println("Archivo creado correctamente");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}else {
+			System.out.println("Has introducido un archivo incorrecto");
 		}
-
 	}
 
 }
