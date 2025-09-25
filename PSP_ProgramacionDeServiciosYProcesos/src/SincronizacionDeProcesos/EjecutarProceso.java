@@ -20,12 +20,12 @@ public class EjecutarProceso {
 		ProcessBuilder pb = new ProcessBuilder(procesos);
 		Process proceso = null;
 		try {
-			proceso = pb.start();
+			proceso = pb.start(); //Se ejecuta el proceso hijo
 
 			System.out.println("Se ha lanzado el proceso");
 			System.out.println("El proceso padre esperara a que el hijo termine su ejecucion");
 
-			BufferedReader br = new BufferedReader(new InputStreamReader(proceso.getInputStream()));
+			BufferedReader br = new BufferedReader(new InputStreamReader(proceso.getInputStream())); //lee la salida del hijo
 
 			String linea;
 
@@ -41,9 +41,9 @@ public class EjecutarProceso {
 		}
 
 		try {
-			proceso.waitFor();
+			proceso.waitFor(); //el proceso padre espera a que el hijo termine
 		} catch (InterruptedException e) {
-			// TODO: handle exceptio
+			// TODO: handle exception
 			e.printStackTrace();
 		}
 
