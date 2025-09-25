@@ -1,4 +1,4 @@
-package Ejercicio7;
+package EjerciciosDeRepaso.Ejercicio7;
 
 public class Administracion extends Padre {
 

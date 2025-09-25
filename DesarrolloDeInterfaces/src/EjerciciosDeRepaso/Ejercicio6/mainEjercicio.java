@@ -1,4 +1,4 @@
-package Ejercicio6;
+package EjerciciosDeRepaso.Ejercicio6;
 
 public class mainEjercicio {
 

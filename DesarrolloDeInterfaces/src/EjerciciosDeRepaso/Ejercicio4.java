@@ -1,3 +1,5 @@
+package EjerciciosDeRepaso;
+
 import java.util.Scanner;
 
 public class Ejercicio4 {
@@ -35,7 +37,7 @@ public class Ejercicio4 {
 			}
 
 		}
-				
+
 	}
 
 }
