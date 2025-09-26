@@ -17,6 +17,8 @@ public class EjecutarProceso2 {
 		Process proceso02 = null;
 
 		try {
+			// Esta mal porque no puedo controlar el orden de ejcucion de los procesos
+
 			ProcessBuilder pb = new ProcessBuilder(lanzarProceso1);
 			proceso01 = pb.start();
 			System.out.println("Esperando a que se cierre la carpteta");
