@@ -24,9 +24,7 @@ public class ejercicio3 {
 			try {
 				FileReader lector = new FileReader(archivo);
 				BufferedReader buffer = new BufferedReader(lector);
-
-				String expRegComa = ",";
-
+				
 				String linea;
 				boolean separar = false;
 				while ((linea = buffer.readLine()) != null) {
@@ -54,7 +52,6 @@ public class ejercicio3 {
 						int contador = 0;
 						String[] comillas = linea.split(",");
 						boolean comillasBolean = false;
-						String nuevaLinea = "";
 						for (int i = 0; i < comillas.length; i++) {
 
 							if (comillas[i].contains("\"")) {

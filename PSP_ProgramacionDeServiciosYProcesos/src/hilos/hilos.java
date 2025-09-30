@@ -1,9 +1,9 @@
 package hilos;
 
-public class mainHilo implements Runnable {
+public class hilos implements Runnable {
 	private final String nombre;
 
-	public mainHilo(String nombre) {
+	public hilos(String nombre) {
 		super();
 		this.nombre = nombre;
 	}
