@@ -23,7 +23,7 @@ public class Proceso {
 			proces = pb.start();
 			try {
 				proces.waitFor(MAXTIEMPO, TimeUnit.SECONDS);
-				System.out.println("Se ha ejecutado 1 segundo despues de haber lanzado el proceso");
+				System.out.println("Se ha ejecutado 10 segundo despues de haber lanzado el proceso");
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

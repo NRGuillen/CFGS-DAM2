@@ -6,13 +6,15 @@ import java.util.ArrayList;
 
 public class LanzarProceso5 {
 
-	public void lanzarProceso(String[] args) {
+	public void lanzarProceso(String args) {
 
 		ArrayList<String> argumentos = new ArrayList<>();
 
-		for (String object : args) {
-			argumentos.add(object);
-		}
+		
+		argumentos.add("cmd.exe");
+		argumentos.add("start");
+		argumentos.add("/C");
+		argumentos.add(args);
 
 		try {
 			ProcessBuilder pb = new ProcessBuilder(argumentos);
