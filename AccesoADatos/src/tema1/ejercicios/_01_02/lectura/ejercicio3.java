@@ -1,14 +1,12 @@
 package tema1.ejercicios._01_02.lectura;
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class ejercicio3 {
 
 	public static void main(String[] args) {
 
-		ArrayList<String> separarComillas = new ArrayList<>();
-		ArrayList<String> separarComas = new ArrayList<>();
+		// ArrayList<String> separarComas = new ArrayList<>();
 
 		File archivo = new File("Restaurants.csv");
 
@@ -24,8 +22,13 @@ public class ejercicio3 {
 			try {
 				FileReader lector = new FileReader(archivo);
 				BufferedReader buffer = new BufferedReader(lector);
-				
+
 				String linea;
+				// Linea de encabezados
+				linea = buffer.readLine();
+				System.out.println(linea);
+				String[] encabezado = linea.split(",");
+
 				boolean separar = false;
 				while ((linea = buffer.readLine()) != null) {
 
@@ -40,8 +43,7 @@ public class ejercicio3 {
 
 						for (int i = 0; i < comas.length; i++) {
 
-							System.out.print(" Campo: " + comas[i]);
-							separarComas.add(comas[i]);
+							System.out.print("-"+encabezado[i] + " " + comas[i]+ " ");
 						}
 						System.out.println();
 
@@ -61,7 +63,7 @@ public class ejercicio3 {
 								comillasBolean = false;
 
 							}
-
+							
 							if (!comillasBolean && contador == 1 || contador == 0) {
 								comillasBolean = false;
 								comillas = linea.split(",");
