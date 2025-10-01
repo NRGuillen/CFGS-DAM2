@@ -44,9 +44,18 @@ public class ApuntesOutputStream {
 		} else {
 			if (ficheroEscritura.isFile()) {
 				try {
-					// Lo abro para escritura y escribo un flujo de datos
+					// Lo abro para escritura en bytes
 					FileOutputStream fos = new FileOutputStream(ficheroEscritura);
-					// El tipo de dato que tiene que transformar es un objeto en bytes
+
+					 /* 
+					 * ObjectInputStream -> permite escribir objetos SERIALIZADOS que fueron guardados en el archivo.
+					 * 	  ¿Que es escribir objetos SERIALIZADOS?
+					 * 	  Los objetos de Java no se pueden guardar directamente en un archivo como los primitivos (int, double, etc.), porque un 
+					 * 	  objeto es una estructura compleja con atributos, referencias a otros objetos, y métodos.
+					 *	   - Por ejemplo, un objeto Persona tiene nombre y edad.
+					 *	   - Para guardar eso en un archivo necesitamos “aplanarlo” en bytes, y eso es lo que hace la serialización.
+					 */
+					
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 
 					oos.writeObject(personas);
