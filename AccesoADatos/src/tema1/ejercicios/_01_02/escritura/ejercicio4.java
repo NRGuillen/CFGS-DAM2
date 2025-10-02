@@ -13,106 +13,59 @@ public class ejercicio4 {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
-		ArrayList<String> nuevoArchivotxt = new ArrayList<>();
+		ArrayList<String> juntarArchivo = new ArrayList<>();
 
-		System.out.println("Introduce el primer archivo que quieres combinar con el segundo,  AÑADE .txt");
-		String archivo1 = scanner.nextLine();
+		System.out.println("Introduce la ruta del primer archivo con su extension .txt");
+		String ruta1 = scanner.nextLine();
 
-		System.out.println("Introduce el segundo archivo que quieres combinar con el primero, AÑADE .txt");
-		String archivo2 = scanner.nextLine();
+		System.out.println("Introduce la ruta del segundo archivo con su extension .txt");
+		String ruta2 = scanner.nextLine();
 
-		System.out.print("Introduce la ruta donde quieres guardar el nuevo archivo:");
-		String ruta = scanner.nextLine();
+		System.out.println("Introduce la ruta final para guardar los 2 ficheros anteriores en un directorio");
+		String rutaFinal = scanner.nextLine();
 
-		File archivoCopiar1 = new File(archivo1);
-		File archivoCopiar2 = new File(archivo2);
+		try {
 
-		/*
-		 * NO PUEDO HACER ESTO PORQUE:
-		 * 
-		 * archivo1 contiene toda la ruta (C:\Users\yo\archivo1.txt en Windows).
-		 * 
-		 * Al hacer split("."), obtienes algo como:
-		 * 
-		 * ["C:\Users\yo\archivo1", "txt"]
-		 *
-		 * Y cuando intento concatenar, el sistema lo interpreta como ruta en vez de
-		 * nombre.txt
-		 * 
-		 * String[] archivoSinTxT1 = archivo1.split("\\."); String nuevoArchivo =
-		 * archivoSinTxT1[0];
-		 * 
-		 * String[] archivoSinTxT2 = archivo2.split("\\."); String nuevoArchivo2 =
-		 * archivoSinTxT2[0];
-		 */
+			File archivo1 = new File(ruta1);
+			File archivo2 = new File(ruta2);
 
-		String nombre1 = archivoCopiar1.getName().split("\\.")[0]; // Sin el getName, te daria toda la ruta
-																	// c:/Windows/.txt, con el getname directamente
-																	// el
-																	// txt
-		String nombre2 = archivoCopiar2.getName().split("\\.")[0];
+			String[] nombreSinTxt = archivo1.getName().split("\\.");
+			String archivoFinal = nombreSinTxt[0] + "_" + archivo2.getName();
 
-		String nuevoArchivo = nombre1 + "_" + nombre2 + ".txt";
+			if (archivo1.exists() && archivo2.exists() && archivo1.isFile() && archivo2.isFile()) {
 
-		if (archivoCopiar1.exists() && archivoCopiar2.exists()) {
-
-			try {
-
-				FileReader leerArchivo1 = new FileReader(archivoCopiar1);
-				FileReader leerArchivo2 = new FileReader(archivoCopiar2);
-
-				BufferedReader bufferleerArchivo1 = new BufferedReader(leerArchivo1);
-				BufferedReader bufferleerArchivo2 = new BufferedReader(leerArchivo2);
-
-				String linea = bufferleerArchivo1.readLine();
-				String linea2 = bufferleerArchivo2.readLine();
-
-				while (linea != null) {
-					System.out.println(linea);
-					nuevoArchivotxt.add(linea);
-					linea = bufferleerArchivo1.readLine();
+				BufferedReader br = new BufferedReader(new FileReader(archivo1));
+				String linea;
+				while ((linea = br.readLine()) != null) {
+					juntarArchivo.add(linea);
 				}
-				while (linea2 != null) {
-					System.out.println(linea2);
-					nuevoArchivotxt.add(linea2);
-					linea2 = bufferleerArchivo2.readLine();
+				br.close();
 
+				br = new BufferedReader(new FileReader(archivo2));
+				while ((linea = br.readLine()) != null) {
+					juntarArchivo.add(linea);
 				}
+				br.close();
 
-				leerArchivo1.close();
-				leerArchivo2.close();
-				bufferleerArchivo1.close();
-				bufferleerArchivo2.close();
+				File nuevoArchivoRuta = new File(rutaFinal, archivoFinal);
+				BufferedWriter bw = new BufferedWriter(new FileWriter(nuevoArchivoRuta));
 
-				File nuevoArhivoFinal = new File(ruta, nuevoArchivo);
-				FileWriter escribirNum1 = new FileWriter(nuevoArhivoFinal);
-				BufferedWriter bufferEscrituraNuevo = new BufferedWriter(escribirNum1);
-
-				for (int i = 0; i < nuevoArchivotxt.size(); i++) {
-
-					bufferEscrituraNuevo.write(nuevoArchivotxt.get(i));
-					bufferEscrituraNuevo.newLine();
-
+				for (String string : juntarArchivo) {
+					bw.write(string);
+					bw.newLine();
 				}
+				bw.close();
 
-				bufferEscrituraNuevo.close();
-				escribirNum1.close();
-
-				for (int i = 0; i < nuevoArchivotxt.size(); i++) {
-
-					System.out.println(i);
-
-				}
-
-				System.out.println("Archivo creado correctamente");
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else {
+				System.out.println("Ha introducido erroneamente la ruta de los archivos");
 			}
-		}else {
-			System.out.println("Has introducido un archivo incorrecto");
+
+		} catch (IOException e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
+
+		scanner.close();
 	}
 
 }

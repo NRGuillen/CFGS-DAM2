@@ -14,23 +14,21 @@ public class ejercicio3 {
 		int numero = scanner.nextInt();
 
 		scanner.nextLine();
-		
+
 		System.out.println("Introduce el nombre del archivo txt: ");
 		String archivo = scanner.nextLine();
 
 		File numerosAleatorios = new File(archivo);
 		try {
-			FileWriter escribirNum = new FileWriter(numerosAleatorios);
-			BufferedWriter bufferEscritura = new BufferedWriter(escribirNum);
-			
+			BufferedWriter bufferEscritura = new BufferedWriter(new FileWriter(numerosAleatorios));
+
 			for (int i = 0; i < numero; i++) {
-				
-				
-				Integer num = (int) (Math.random() * 100); // entre 0 y 99	
+
+				Integer num = (int) (Math.random() * 100); // entre 0 y 99
 				bufferEscritura.write(num.toString());
 				bufferEscritura.newLine();
 			}
-			
+
 			bufferEscritura.close();
 			System.out.println("Archivo creado correctamente");
 
@@ -38,6 +36,7 @@ public class ejercicio3 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		scanner.close();
 	}
 
 }

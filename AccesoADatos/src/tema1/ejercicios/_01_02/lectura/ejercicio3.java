@@ -6,91 +6,59 @@ public class ejercicio3 {
 
 	public static void main(String[] args) {
 
-		// ArrayList<String> separarComas = new ArrayList<>();
-
 		File archivo = new File("Restaurants.csv");
 
 		if (!archivo.exists()) {
-			try {
-				archivo.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			System.out.println("El archivo no existe");
+
 		} else {
 
 			try {
 				FileReader lector = new FileReader(archivo);
 				BufferedReader buffer = new BufferedReader(lector);
 
-				String linea;
-				// Linea de encabezados
-				linea = buffer.readLine();
+				String linea = buffer.readLine();
 				System.out.println(linea);
 				String[] encabezado = linea.split(",");
-
-				boolean separar = false;
 				while ((linea = buffer.readLine()) != null) {
 
-					if (linea.contains("\"")) {
-						separar = true;
-					} else {
-						separar = false;
-					}
+					boolean comillas = false;
+					StringBuilder sb = new StringBuilder(linea); // lo uso pq un string normal no puedo setearle el
+																	// valor de i, con el sb si puedo
 
-					if (!separar) {
+					if (linea.contains("\"")) {
+						for (int i = 0; i < sb.length(); i++) {
+
+							if (sb.charAt(i) == '"') {
+								comillas = !comillas;
+							}
+
+							if (comillas && sb.charAt(i) == ',') {
+								sb.setCharAt(i, '*');
+							}
+
+						}
+
+						String[] fraseComillas = sb.toString().split(",");
+
+						for (int i = 0; i < fraseComillas.length; i++) {
+							System.out.print("#" + encabezado[i] + ":" + fraseComillas[i].replace("*", ",") + "  ");
+						}
+						System.out.println();
+
+					} else {
 						String[] comas = linea.split(",");
 
 						for (int i = 0; i < comas.length; i++) {
 
-							System.out.print("-"+encabezado[i] + " " + comas[i]+ " ");
-						}
-						System.out.println();
-
-					}
-
-					if (separar) {
-
-						int contador = 0;
-						String[] comillas = linea.split(",");
-						boolean comillasBolean = false;
-						for (int i = 0; i < comillas.length; i++) {
-
-							if (comillas[i].contains("\"")) {
-								contador++;
-								comillasBolean = true;
-							} else {
-								comillasBolean = false;
-
-							}
-							
-							if (!comillasBolean && contador == 1 || contador == 0) {
-								comillasBolean = false;
-								comillas = linea.split(",");
-								System.out.print(/* " contador" + contador + */" Campo: " + comillas[i]);
-							}
-
-							if (contador == 1 && comillasBolean) {
-								comillas = linea.split("\"");
-								System.out.print(" Campo: \"" + comillas[i] + "\""/* " contador" + contador + */);
-								contador++;
-							}
-
-							if (contador == 2 && !comillasBolean) {
-								comillas = linea.split(",");
-								comillas[2] = "";
-
-								System.out.print(comillas[i]);
-								if (i < comillas.length - 1) { // hasta el penultimo
-									System.out.print(" ,Campo: ");
-								}
-							}
-
+							System.out.print("#" + encabezado[i] + ":" + comas[i] + "  ");
 						}
 						System.out.println();
 					}
 
 				}
+
+				buffer.close();
 
 			} catch (IOException e) {
 				// TODO: handle exception

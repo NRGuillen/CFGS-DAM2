@@ -38,8 +38,7 @@ public class ejercicio1 {
 
 			}
 
-			FileWriter escribirOrdenado = new FileWriter(archivoPrimos); //abre el fichero para escritura
-			BufferedWriter bufferEscritura = new BufferedWriter(escribirOrdenado); //escribe en el fichero
+			BufferedWriter bufferEscritura = new BufferedWriter(new FileWriter(archivoPrimos)); // escribe en el fichero
 
 			for (int i = 0; i < primos.size(); i++) {
 				bufferEscritura.write(primos.get(i));
@@ -47,8 +46,6 @@ public class ejercicio1 {
 			}
 
 			bufferEscritura.close();
-			escribirOrdenado.close();
-			
 			System.out.println("Archivo creado correctamente");
 
 		} catch (IOException e) {

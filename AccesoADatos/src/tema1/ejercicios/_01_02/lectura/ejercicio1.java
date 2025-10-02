@@ -18,14 +18,15 @@ public class ejercicio1 {
 		} else {
 
 			try {
-				FileReader lector = new FileReader(archivo);
-				BufferedReader buffer = new BufferedReader(lector);
+				BufferedReader buffer = new BufferedReader(new FileReader(archivo));
 
 				String linea = buffer.readLine().replaceAll(" ", "");
 				while (linea != null) {
 					System.out.println("Contenido: " + linea);
 					linea = buffer.readLine();
 				}
+
+				buffer.close();
 
 			} catch (IOException e) {
 				// TODO: handle exception

@@ -13,15 +13,10 @@ public class ejercicio2 {
 		ArrayList<String> palabras = new ArrayList<>();
 		Scanner scanner = new Scanner(System.in);
 
-		int indice = 1;
 		System.out.println("Introduce frases hasta que escribas 'fin'");
-		System.out.print("Frase " + indice + ":");
 		String frase = scanner.nextLine();
 
 		while (!frase.equals("fin")) {
-
-			indice++;
-			System.out.print("Frase " + indice + ":");
 			palabras.add(frase);
 			frase = scanner.nextLine();
 
@@ -30,22 +25,23 @@ public class ejercicio2 {
 		File archivo = new File("registroDeUsuario.txt");
 
 		try {
-			FileWriter archivoEscritura = new FileWriter(archivo);
-			BufferedWriter escrituraLinea = new BufferedWriter(archivoEscritura);
+			BufferedWriter escrituraLinea = new BufferedWriter(new FileWriter(archivo));
 
 			for (int i = 0; i < palabras.size(); i++) {
 
 				escrituraLinea.write(palabras.get(i));
 				escrituraLinea.newLine();
-				System.out.println("Archivo creado correctamente");
 			}
 
+			System.out.println("Archivo creado correctamente");
 			escrituraLinea.close();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		scanner.close();
 
 	}
 

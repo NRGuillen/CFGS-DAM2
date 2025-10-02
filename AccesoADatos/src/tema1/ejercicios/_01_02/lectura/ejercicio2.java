@@ -18,28 +18,27 @@ public class ejercicio2 {
 		} else {
 
 			try {
-				FileReader lector = new FileReader(archivo);
-				BufferedReader buffer = new BufferedReader(lector);
-				String linea = buffer.readLine();
-				int totalCaracteres = 0;
-				int totalVocales = 0;
-				while (linea != null) {
+				BufferedReader buffer = new BufferedReader(new FileReader(archivo));
+				String linea;
+				int totalCaracteres = 0, totalVocales = 0;
+				while ((linea = buffer.readLine()) != null) {
 					System.out.println("Contenido: " + linea);
-					totalCaracteres += linea.length();
 
 					for (int i = 0; i < linea.length(); i++) {
 
-						if (linea.charAt(i) == 'a' || linea.charAt(i) == 'A' || linea.charAt(i) == 'e'
-							|| linea.charAt(i) == 'E' || linea.charAt(i) == 'i' || linea.charAt(i) == 'I'
-							|| linea.charAt(i) == 'o' || linea.charAt(i) == 'O' || linea.charAt(i) == 'u'
-							|| linea.charAt(i) == 'U') {
-							totalVocales++;
+						if (linea.charAt(i) != ' ') {
+							totalCaracteres++;
 						}
 
+						if (linea.toLowerCase().charAt(i) == 'a' || linea.toLowerCase().charAt(i) == 'e'
+								|| linea.toLowerCase().charAt(i) == 'i' || linea.toLowerCase().charAt(i) == 'o'
+								|| linea.toLowerCase().charAt(i) == 'u') {
+							totalVocales++;
+						}
 					}
-
-					linea = buffer.readLine();
 				}
+
+				buffer.close();
 				System.out.println("Numero total de caracteres: " + totalCaracteres);
 				System.out.println("Numero total de vocales: " + totalVocales);
 
