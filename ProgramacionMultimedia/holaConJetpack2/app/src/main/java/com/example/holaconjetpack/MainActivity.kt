@@ -7,6 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
@@ -52,7 +55,9 @@ class MainActivity :
         setContent {
             //DosTextosVerticales()
             //EjemploBox()
-            ImagenConTexto()
+            //ImagenConTexto()
+            ImagenConZoom()
+
         }
     }
 }
@@ -67,6 +72,48 @@ fun randomNumber(): Color {
 
     return Color(rojo, verde, azul)
 
+}
+
+@Composable
+fun ImagenConZoom() {
+    var escalaImagen by remember { mutableStateOf(1f) } // 1f -> Escala real 1:1
+    var posicionImagen by remember { mutableStateOf(Offset(0f, 0f)) }
+    var anguloRotacion by remember { mutableStateOf(0f) } // 0º
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTransformGestures { _, desplazamiento, zoom, rotacion -> // _ -> parametros opcionales
+                    escalaImagen *= zoom
+                    posicionImagen += desplazamiento
+                    anguloRotacion += rotacion
+                }
+            }.pointerInput(Unit) {
+                detectTapGestures(
+                    onDoubleTap = {
+                        //Devolvemos la imagen a su estado inicial
+                        escalaImagen = 1f
+                        posicionImagen = Offset(0f,0f)
+                        anguloRotacion = 0f
+                    }
+                )
+            }, contentAlignment = Alignment.Center
+    )
+    {
+        Image(
+            painter = painterResource(id = R.drawable.asdsadasd),
+            contentDescription = "Perro entrevistador jeje",
+            modifier = Modifier.graphicsLayer(
+                scaleX = escalaImagen.coerceIn(0.5f, 3f),
+                scaleY = escalaImagen.coerceIn(0.5f, 3f),
+                translationX = posicionImagen.x,
+                translationY = posicionImagen.y,
+                rotationZ = anguloRotacion,
+            )
+
+        )
+
+    }
 }
 
 @Composable
@@ -230,5 +277,6 @@ fun DosTextosVerticales() {
 fun FuncionesPreview() {
     //DosTextosVerticales()
     //EjemploBox()
-    ImagenConTexto()
+    //ImagenConTexto()
+    ImagenConZoom()
 }
