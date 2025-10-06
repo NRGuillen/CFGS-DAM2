@@ -44,21 +44,22 @@ public class ejercicio1 {
 
 			RandomAccessFile raf2 = new RandomAccessFile(fichero, "r");
 
-			System.out.println( "Introduce el numero de memoria para ver un numero de fibonacci (limite " + numero  + " )");
+			System.out
+					.println("Introduce el numero de memoria para ver un numero de fibonacci (limite " + numero + " )");
 			int memoria = scanner.nextInt();
 
 			for (int i = 0; i < raf2.length() / 4; i++) {
 
 				System.out.println(raf2.readInt());
-				
+
 			}
 			System.out.println();
 			raf2.seek(memoria * 4);
 
 			System.out.println(raf2.readInt());
 			
+			raf.close();
 			raf2.close();
-
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,6 +67,7 @@ public class ejercicio1 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		scanner.close();
 
 	}
 
