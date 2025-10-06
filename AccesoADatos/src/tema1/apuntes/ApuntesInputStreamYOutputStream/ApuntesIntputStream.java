@@ -36,7 +36,7 @@ public class ApuntesIntputStream {
 			
 			
 			/*
-			 * FileInputStream -> Abre el fichero.txt 
+			 * FileInputStream -> Abre el fichero.dat 
 			 * DataInputStream -> Permite leer tipo de datos primitivos, en el mismo orden en el que fueron escritos
 			 * Input (entrada) → lo que entra al programa (lo que lees de teclado, de un fichero, de la red, etc.).
 			 */
