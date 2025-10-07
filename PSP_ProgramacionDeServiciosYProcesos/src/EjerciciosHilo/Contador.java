@@ -1,8 +1,7 @@
 package EjerciciosHilo;
 
-public class Contador {
-
-	private int cuenta = 0;
+ public class Contador {
+	int cuenta = 0;
 
 	public int getCuenta() {
 		return cuenta;

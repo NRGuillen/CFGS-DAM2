@@ -66,8 +66,8 @@ public class mainHilos {
 
 		/*
 		 * Thread hilo1 = new Thread(new constructorHilos("h1")); Thread hilo2 = new
-		 * Thread(new constructorHilos("h2")); Thread hilo3 = new Thread(new
-		 * constructorHilos("h3")); Thread hilo4 = new Thread(new
+		 * Thread(new constructorHilos("h2")); 
+		 * Thread hilo3 = new Thread(newconstructorHilos("h3")); Thread hilo4 = new Thread(new
 		 * constructorHilos("h4")); Thread hilo5 = new Thread(new
 		 * constructorHilos("h5")); Thread hilo6 = new Thread(new
 		 * constructorHilos("h6")); Thread hilo7 = new Thread(new
