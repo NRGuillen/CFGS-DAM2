@@ -71,7 +71,8 @@ public class mainClase {
 				System.out.println("1. Mostrar frutas con filtrado mayor");
 				System.out.println("2. Mostrar frutas con filtrado igual");
 				System.out.println("3. Mostrar frutas con filtrado menor");
-				System.out.println("4. Salir");
+				System.out.println("4. Mostrar frutas por nutrientes");
+				System.out.println("5. Salir");
 				System.out.print("Opcion:");
 				int opcion = scanner.nextInt();
 
@@ -107,6 +108,22 @@ public class mainClase {
 
 					break;
 				case 4:
+					scanner.nextLine();
+					System.out.print("Introduce el nutriente a buscar: ");
+					String nutrienteBuscar = scanner.nextLine();
+					int recorrer = 0;
+					for (Fruta fruta : almacenFrutas) {
+						do {
+							if (nutrienteBuscar.equals(fruta.getNutrientes().get(recorrer))) {
+								System.out.println(fruta.toString().replace('[', ' ').replace(']', ' '));
+							}
+							recorrer++;
+						} while (recorrer < fruta.getNutrientes().size());
+						recorrer = 0;
+					}
+
+					break;
+				case 5:
 					bandera = 1;
 					break;
 				default:
