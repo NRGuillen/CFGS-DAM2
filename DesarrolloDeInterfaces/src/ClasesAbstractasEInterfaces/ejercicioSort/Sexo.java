@@ -1,4 +1,4 @@
-package clasesabstractas;
+package ClasesAbstractasEInterfaces.ejercicioSort;
 
 public enum Sexo {
 

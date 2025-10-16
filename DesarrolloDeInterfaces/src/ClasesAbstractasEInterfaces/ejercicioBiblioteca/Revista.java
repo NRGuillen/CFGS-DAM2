@@ -1,4 +1,4 @@
-package ejercicioBiblioteca;
+package ClasesAbstractasEInterfaces.ejercicioBiblioteca;
 
 public class Revista extends Biblioteca {
 

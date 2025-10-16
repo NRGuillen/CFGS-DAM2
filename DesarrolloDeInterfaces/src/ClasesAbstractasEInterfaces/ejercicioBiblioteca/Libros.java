@@ -1,4 +1,4 @@
-package ejercicioBiblioteca;
+package ClasesAbstractasEInterfaces.ejercicioBiblioteca;
 
 public class Libros extends Biblioteca implements Prestable {
 

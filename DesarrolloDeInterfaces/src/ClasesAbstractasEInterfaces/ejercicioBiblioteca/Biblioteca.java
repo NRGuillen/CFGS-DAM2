@@ -1,4 +1,4 @@
-package ejercicioBiblioteca;
+package ClasesAbstractasEInterfaces.ejercicioBiblioteca;
 
 abstract public class Biblioteca {
 

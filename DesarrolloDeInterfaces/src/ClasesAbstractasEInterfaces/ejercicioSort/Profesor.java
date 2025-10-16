@@ -1,4 +1,4 @@
-package clasesabstractas;
+package ClasesAbstractasEInterfaces.ejercicioSort;
 
 public class Profesor extends Persona  implements Comparable<Profesor> {
 

@@ -1,4 +1,4 @@
-package clasesabstractas;
+package ClasesAbstractasEInterfaces.ejercicioSort;
 
 import java.util.ArrayList;
 import java.util.Scanner;
