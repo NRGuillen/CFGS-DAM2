@@ -2,6 +2,7 @@ package tema1.ejercicios.ejerciciosIO._01_04_LecturaXML;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -56,11 +57,13 @@ public class mainClase {
 				}
 
 			}
+			
+			almacenFrutas.sort(Comparator.comparing(Fruta::getPrecio));
 
 			System.out.println(
 					"===============================================================Listado de frutas===============================================================");
 			for (Fruta fruta : almacenFrutas) {
-				System.out.println(fruta);
+				System.out.println(fruta.toString());
 			}
 
 			Scanner scanner = new Scanner(System.in);
