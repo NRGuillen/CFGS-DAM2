@@ -1,9 +1,9 @@
-Júpiter
+Mercurio
+Venus
 La Tierra
 Marte
-Mercurio
-Neptuno
-Plutón
+Júpiter
 Saturno
 Urano
-Venus
+Neptuno
+Plutón
