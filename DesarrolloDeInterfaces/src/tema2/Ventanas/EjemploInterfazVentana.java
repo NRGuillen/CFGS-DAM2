@@ -10,14 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
-import javax.swing.JToolBar;
-import javax.swing.JScrollPane;
-import javax.swing.JLayeredPane;
-import javax.swing.JInternalFrame;
-import javax.swing.JTabbedPane;
-import javax.swing.JTree;
-import javax.swing.JSlider;
-import javax.swing.JTable;
+
 
 public class EjemploInterfazVentana {
 
