@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
-public class EjemploInterfazVentana2 {
+public class EjemploInterfazVentanaSobreponerVentanas {
 
 	private JFrame frame;
 	private int contador = 0;
@@ -33,7 +33,7 @@ public class EjemploInterfazVentana2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EjemploInterfazVentana2 window = new EjemploInterfazVentana2();
+					EjemploInterfazVentanaSobreponerVentanas window = new EjemploInterfazVentanaSobreponerVentanas();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +45,7 @@ public class EjemploInterfazVentana2 {
 	/**
 	 * Create the application.
 	 */
-	public EjemploInterfazVentana2() {
+	public EjemploInterfazVentanaSobreponerVentanas() {
 		initialize();
 	}
 
@@ -55,7 +55,6 @@ public class EjemploInterfazVentana2 {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(255, 255, 255));
-		frame.setLocationRelativeTo(null); // Centra la ventana de ejecucion al centro de la pantalla
 		frame.setBounds((1920/2) - (873 / 2), (1080/2) - (551 / 2), 873, 551);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0)); // CardLayout sirve como una baraja de cartas, superpone

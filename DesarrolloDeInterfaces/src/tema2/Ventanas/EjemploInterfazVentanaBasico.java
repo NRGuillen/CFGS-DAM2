@@ -12,7 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JSpinner;
 
 
-public class EjemploInterfazVentana {
+public class EjemploInterfazVentanaBasico {
 
 	private JFrame frame;
 	private JTextField textField;
@@ -26,7 +26,7 @@ public class EjemploInterfazVentana {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EjemploInterfazVentana window = new EjemploInterfazVentana();
+					EjemploInterfazVentanaBasico window = new EjemploInterfazVentanaBasico();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +38,7 @@ public class EjemploInterfazVentana {
 	/**
 	 * Create the application.
 	 */
-	public EjemploInterfazVentana() {
+	public EjemploInterfazVentanaBasico() {
 		initialize();
 	}
 
