@@ -3,66 +3,91 @@ package tema1.PracticaFinalTema1;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 public class mainClase {
 
-	// Falta comprobar que el archivo exista en la carpeta y eliminar el antiguo
-	public static void copiaArchivoDAT(File moverPlantasDAT, File rutaPlantas) {
-
-		try {
-			ArrayList<String> copiaPlantasDAT = new ArrayList<>();
-			BufferedReader lecturaLineaDAT = new BufferedReader(new FileReader(moverPlantasDAT));
-			String lineaLecturaDAT;
-			while ((lineaLecturaDAT = lecturaLineaDAT.readLine()) != null) {
-				copiaPlantasDAT.add(lineaLecturaDAT);
-			}
-			lecturaLineaDAT.close();
-
-			String copiaArchivoDAT = rutaPlantas + "\\plantas.dat";
-
-			BufferedWriter escrituraLineaDAT = new BufferedWriter(new FileWriter(copiaArchivoDAT));
-
-			for (int i = 0; i < copiaPlantasDAT.size(); i++) {
-				escrituraLineaDAT.write(copiaPlantasDAT.get(i));
-				escrituraLineaDAT.newLine();
-			}
-
-			escrituraLineaDAT.close();
-		} catch (IOException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-
+	public static void copiaArchivosPlantas(String nombreArchivo, String rutaFinal) {
 	}
 
-	// Falta comprobar que el archivo exista en la carpeta y eliminar el antiguo
-	public static void copiaArchivoXML(File moverPlantasXML, File rutaPlantas) {
+	public static void copiaArchivosEmpleado(String nombreArchivo, String rutaFinal) {
+
+		String archivoDATCopia = rutaFinal + "\\" + nombreArchivo;
+
+		File ficheroComprueba = new File(archivoDATCopia);
+
+		if (!ficheroComprueba.isFile() && !ficheroComprueba.exists()) {
+
+			try {
+				File fichero = new File(nombreArchivo);
+				RandomAccessFile rafLectura = new RandomAccessFile(fichero, "r");
+
+				File ficheroCopia = new File(archivoDATCopia);
+				RandomAccessFile rafEscritura = new RandomAccessFile(ficheroCopia, "rw");
+
+				while (rafLectura.getFilePointer() < rafLectura.length()) {
+					int codigo = rafLectura.readInt();
+					float precio = rafLectura.readFloat();
+					int stock = rafLectura.readInt();
+
+					System.out.println("\nCodigo: " + codigo);
+					System.out.println("Precio: " + precio);
+					System.out.println("Stock: " + stock);
+
+					rafEscritura.writeInt(codigo); // Si no lo pongo con variables saltan de 2 en 2 (no se porque)
+					rafEscritura.writeFloat(precio);
+					rafEscritura.writeInt(stock);
+				}
+
+				rafLectura.close();
+				rafEscritura.close();
+
+				System.out.println("Copia realizada correctamente en: " + archivoDATCopia);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("El archivo " + nombreArchivo + " ya existe en la ruta: " + rutaFinal);
+		}
+	}
+
+	public static void copiaArchivosXML(String nombreArchivo, String rutaFinal) {
+
+		ArrayList<String> copiaXML = new ArrayList<>();
 
 		try {
-			ArrayList<String> copiaPlantasXML = new ArrayList<>();
-			BufferedReader lecturaLineaXML = new BufferedReader(new FileReader(moverPlantasXML));
-			String lineaLecturaXML;
-			while ((lineaLecturaXML = lecturaLineaXML.readLine()) != null) {
-				copiaPlantasXML.add(lineaLecturaXML);
+			File archivoXML = new File(nombreArchivo);
+			BufferedReader br = new BufferedReader(new FileReader(archivoXML));
+			String leerLineaXML;
+
+			while ((leerLineaXML = br.readLine()) != null) {
+				copiaXML.add(leerLineaXML);
 			}
-			lecturaLineaXML.close();
+			br.close();
 
-			String copiaArchivoXML = rutaPlantas + "\\plantas.xml";
+			String rutaDestino = rutaFinal + "\\" + nombreArchivo;
 
-			BufferedWriter escrituraLineaXML = new BufferedWriter(new FileWriter(copiaArchivoXML));
+			File archivoXMLCopia = new File(rutaDestino);
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivoXMLCopia));
 
-			for (int i = 0; i < copiaPlantasXML.size(); i++) {
-				escrituraLineaXML.write(copiaPlantasXML.get(i));
-				escrituraLineaXML.newLine();
+			for (String string : copiaXML) {
+				bw.write(string);
+				bw.newLine();
 			}
 
-			escrituraLineaXML.close();
+			bw.close();
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO: handle exception
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -79,8 +104,9 @@ public class mainClase {
 	}
 
 	public static void directorios() {
+
 		File rutaPadre = new File("src");
-		String rutaCompleta = rutaPadre.getAbsolutePath();
+		String rutaCompleta = rutaPadre.getAbsolutePath(); // C:\Users\XXXXXX\eclipse-workspace\AccesoADatos\src
 		String[] rutaCreacionCarpetas = rutaCompleta.split("\\\\");
 
 		String rutaGlobal = "";
@@ -104,20 +130,47 @@ public class mainClase {
 		creacionDirectorios(rutaTickets, "Tickets");
 		creacionDirectorios(rutaDevoluciones, "Devoluciones");
 
-		File moverPlantasXML = new File("plantas.xml");
-		File moverPlantasDAT = new File("plantas.dat");
+		String plantasXML = "plantas.xml";
+		String plantasDAT = "plantas.dat";
+		// String empleadoDAT = "empleado.dat";
 
-		copiaArchivoDAT(moverPlantasDAT, rutaPlantas);
-		copiaArchivoXML(moverPlantasXML, rutaPlantas);
-
-		System.out.println(rutaPlantas);
+		copiaArchivosXML(plantasXML, directorioPlantas);
+		copiaArchivosEmpleado(plantasDAT, directorioPlantas);
 
 	}
 
 	public static void main(String[] args) {
 
-		directorios();
+		// directorios();
 
+		try {
+			File fichero = new File("empleado.dat");
+			RandomAccessFile rafLectura = new RandomAccessFile(fichero, "r");
+
+			rafLectura.seek(0);
+			while (rafLectura.getFilePointer() < rafLectura.length()) {
+				int codigo = rafLectura.readInt();
+				String nombre = "";
+
+				for (int i = 0; i < rafLectura.readUTF().length(); i++) {
+					nombre += rafLectura.readChar();
+				}
+				
+				String contraseña = rafLectura.readUTF();
+				String cargo = rafLectura.readUTF();
+
+				System.out.println("\nCodigo: " + codigo);
+				System.out.println("Nombre: " + nombre);
+				System.out.println("Contraseña: " + contraseña);
+				System.out.println("Cargo: " + cargo);
+
+			}
+			System.out.println(rafLectura.getFilePointer());
+			rafLectura.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
