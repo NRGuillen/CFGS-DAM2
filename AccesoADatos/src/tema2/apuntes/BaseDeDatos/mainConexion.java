@@ -24,7 +24,7 @@ public class mainConexion {
 
 			// 3. Crear un Statement (Crear una clase que permite insetar consultas)
 			Statement sentencia = conexion.createStatement();
-			String consulta = "select * from usuario";
+			String consulta = "select * from usuario where idUSUARIO = 1";
 			ResultSet resultadoConsulta = sentencia.executeQuery(consulta);
 
 			// 4. Mostrar resultados
