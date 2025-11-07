@@ -17,7 +17,7 @@ import java.io.IOException;
 public class EjemploInterfazIconoYFondoConImagenes {
 
 	private JFrame frame;
-
+ 
 	/**
 	 * Launch the application.
 	 */
