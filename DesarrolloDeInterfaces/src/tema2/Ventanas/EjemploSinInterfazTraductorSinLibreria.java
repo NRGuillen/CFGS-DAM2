@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class EjemploSinInterfazTraductor {
+public class EjemploSinInterfazTraductorSinLibreria {
 
 	public static void main(String[] args) {
 
@@ -18,7 +18,7 @@ public class EjemploSinInterfazTraductor {
 			System.out.println(htmlTroceado);
 
 			String palabraTraducida = cortarHTML(htmlTroceado);
-			System.out.println("Carpeta -> "+palabraTraducida);
+			System.out.println("Carpeta -> " + palabraTraducida);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -34,16 +34,17 @@ public class EjemploSinInterfazTraductor {
 		int inicio, puntoFinal, puntoFinal2;
 
 		inicio = htmlTroceado.indexOf("?langFrom=en\" class=\"tCur1iYh\">"); // Cuenta todo hasta que encuentra el
-																				// sting, en este ejemplo 147836
+																				// primer string con el contenido entre
+																				// "", en este ejemplo 147836
 		// indexOf -> la primera vez que aparezca algo
 
 		// Opcion1, crear una sub cadena y buscar desde ahi
 		String trozo = htmlTroceado.substring(inicio); // Coge desde el ?langFrom=en\" class=\"tCur1iYh\"> hacia
 														// adelante
-		puntoFinal = trozo.indexOf("</a>"); //Cuenta desde el inicio hasta que encuenta el </a>, es decir contaria todo esto
+		puntoFinal = trozo.indexOf("</a>"); // Cuenta desde el inicio hasta que encuenta el </a>, es decir contaria todo
+											// esto
 		// ?langFrom=en" class="tCur1iYh">carpet = 37
-		
-		
+
 		// Opcion2, buscar en la misma cadena pero desde el punto anteriormente
 		// calculado
 		puntoFinal2 = htmlTroceado.indexOf("</a>", inicio);

@@ -6,5 +6,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="src/tema2/Ventanas/jsoup-1.21.2.jar" sourcepath="src/tema2/Ventanas/jsoup-1.21.2-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/DesarrolloDeInterfaces/src/tema2/Ventanas/jsoup-1.21.2-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
