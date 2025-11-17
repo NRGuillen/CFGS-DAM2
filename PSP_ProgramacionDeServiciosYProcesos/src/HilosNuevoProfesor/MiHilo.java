@@ -20,10 +20,12 @@ public class MiHilo extends Thread {
 
 		System.out.println("Soy el hilo " + this.getName());
 
-		//Imprimo el valor de la variable compartida CONTADOR
-		EjemploHilos ejemplo = new EjemploHilos();
-		System.out.println(ejemplo.contador);
-		
+		// Imprimo el valor de la variable compartida CONTADOR
+		synchronized (EjemploHilos.contador) {
+			System.out.println("Soy el hilo -> " + this.getName());
+			EjemploHilos.contador--;
+			System.out.println("Valor del contador -> " + EjemploHilos.contador);
+		}
 	}
 
 }

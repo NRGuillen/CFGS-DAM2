@@ -5,7 +5,7 @@ public class EjemploHilos {
 	//EJERCICIO, hay una butaca(boolean) y hay varias personas intentadolo reservar, solo puede reservarlo 1
 	//Mutex -> caso particular de una excepcion critica
 
-	public static int contador = 20;
+	public static Integer contador = 20;
 
 	public static void main(String[] args) {
 
