@@ -14,48 +14,49 @@ import java.awt.Font;
 //Lo podemos abrir con modo diseño, Click derecho clase -> open with -> WindowBuilder 
 
 public class Panel extends JPanel {
-	private JTextField textField;
+	private JTextField entrada;
+	private JButton traducir;
+	private JButton reiniciar;
+	private JLabel salida;
+
 	public Panel() {
-		
+
 		setBackground(new Color(255, 255, 255));
 		setForeground(new Color(255, 255, 255));
 		setSize(new Dimension(800, 600));
 		setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setOpaque(true);
-		lblNewLabel.setBackground(new Color(192, 192, 192));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNewLabel.setBounds(233, 289, 249, 39);
-		add(lblNewLabel);
-		
-		textField = new JTextField();
-		textField.setBounds(233, 171, 249, 39);
-		add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("Traducir");
-		btnNewButton.setBounds(233, 239, 89, 23);
-		add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Reiniciar");
-		btnNewButton_1.addActionListener(new ActionListener() {
+
+		salida = new JLabel("");
+		salida.setOpaque(true);
+		salida.setBackground(new Color(192, 192, 192));
+		salida.setHorizontalAlignment(SwingConstants.CENTER);
+		salida.setHorizontalTextPosition(SwingConstants.CENTER);
+		salida.setBounds(233, 289, 249, 39);
+		add(salida);
+
+		entrada = new JTextField();
+		entrada.setBounds(233, 171, 249, 39);
+		add(entrada);
+		entrada.setColumns(10);
+
+		traducir = new JButton("Traducir");
+		traducir.setBounds(233, 239, 89, 23);
+		traducir.addActionListener(new EventoTraducir(entrada ,salida)); //Entrada -> lo que mete el usuario, salida -> la palabra traducida
+		add(traducir);
+
+		reiniciar = new JButton("Reiniciar");
+		reiniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(393, 239, 89, 23);
-		add(btnNewButton_1);
-		
+		reiniciar.setBounds(393, 239, 89, 23);
+		add(reiniciar);
+
 		JLabel lblNewLabel_1 = new JLabel("Traductor Ruben Ingles - Español");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(160, 110, 419, 50);
 		add(lblNewLabel_1);
-		
-		
-		
-		
-		
+
 	}
 }

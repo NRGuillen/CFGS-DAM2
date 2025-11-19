@@ -3,16 +3,13 @@ package tema2.apuntes.BaseDeDatos.ejercicios._2_2;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ejercicio1 {
 
 	public static void main(String[] args) {
 
-		String url = "jbdc:mysql://localhost:3306/nba";
+		String url = "jdbc:mysql://localhost:3306/nba";
 		String usuario = "root";
 		String password = "cfgs";
 
@@ -32,18 +29,34 @@ public class ejercicio1 {
 			System.out.println("5. Salir");
 			Scanner scanner = new Scanner(System.in);
 			int opcion = scanner.nextInt();
+			int lineas = 0;
 			switch (opcion) {
 			case 1:
 				scanner.nextLine();
 				System.out.println("Introduce el codigo a eliminar: ");
-				int codigo =scanner.nextInt();
-				
-				String consulta = "delete from jugadores where codigo = ?";
+				int codigo = scanner.nextInt();
+
+				// No hay borrado en cascada, por lo tanto necesito borrar a mano
+				String consulta = "Select * from estadisticas where jugador = ?";
 				PreparedStatement sentencia = conexion.prepareStatement(consulta);
 				sentencia.setInt(1, codigo);
-				ResultSet resultadoConsulta = sentencia.executeQuery();
+				if (sentencia.execute()) { // Devuelve un boolean
+					String consultaBorradoEstaditicas = "delete from estadisticas where jugador = ?";
+					PreparedStatement sentenciaBorradoEstadisticas = conexion.prepareStatement(consultaBorradoEstaditicas);
+					sentenciaBorradoEstadisticas.setInt(1, codigo);
+					lineas = sentenciaBorradoEstadisticas.executeUpdate();
+					if (lineas > 0) {
+						System.out.println("Se han borrado todas las estdisticas del jugador: " + codigo);
+					}
+				}
 
-				
+				String consultaBorrado = "delete from jugadores where codigo = ?";
+				PreparedStatement sentenciaBorrado = conexion.prepareStatement(consultaBorrado);
+				sentenciaBorrado.setInt(1, codigo);
+				lineas = sentenciaBorrado.executeUpdate();
+				if (lineas > 0) {
+					System.out.println("Se ha borrado al jugador: " + codigo);
+				}
 				break;
 			case 2:
 
