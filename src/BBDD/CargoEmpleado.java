@@ -2,6 +2,6 @@ package BBDD;
 
 public enum CargoEmpleado {
 
-	jefe, cajero
-	
+	JEFE, CAJERO
+
 }

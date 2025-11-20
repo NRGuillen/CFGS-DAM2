@@ -1,48 +1,10 @@
 package BBDD;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-
-/*
- * -- Creo el empleado
- * insert into empleado(idEMPLEADO, Nombre, Cargo, Fecha_ingreso) VALUES(1, "Ruben2", 'jefe', "2001-01-21");
- *
- * -- Creo el juguete 1
- * insert into juguete(idJuguete, Nombre, Descripcion, Precio, Cantidad_stock) VALUES(1, "Oso", "Peluche en forma de oso", 3.99, 120); 
- * -- Creo el juguete 2
- * insert into juguete(idJuguete, Nombre, Descripcion, Precio, Cantidad_stock) VALUES(2, "Bicicleta", "Bicicleta roja", 93.99, 33); 
- *
- * -- Creo la zona 1
- * insert into zona(idzona, Nombre, Descripcion) VALUES(1, "Zona 1", "Almacen de juguetes"); 
- * -- Creo la zona 2
- * insert into zona(idzona, Nombre, Descripcion) VALUES(2, "Zona 2", "Almacen de peluches"); 
- *
- * -- Creo el stand 1, en la zona 1
- * insert into stand(idStand, Nombre, Descripcion, ZONA_idzona) VALUES(1, "Stand 1", "Almacen de juguetes", 1);
- * -- Creo el stand 2, en la zona 2
- * insert into stand(idStand, Nombre, Descripcion, ZONA_idzona) VALUES(2, "Stand 2", "Almacen de peluches", 2); 
- *
- * -- Creo el stock de la stand 1, del zona 1, del juguete 1, con una cantidad DISPONIBLE de 120
- * insert into stock(STAND_idStand, STAND_ZONA_idzona, JUGUETE_idJuguete, CANTIDAD) VALUES(1, 1, 1, 120);
- * -- Creo el stock de la stand 1, de la zona 1, del juguete 2, con una cantidad DISPONIBLE de 12
- * insert into stock(STAND_idStand, STAND_ZONA_idzona, JUGUETE_idJuguete, CANTIDAD) VALUES(2, 2, 2, 12); 
- *
- * -- Creo la venta 1, del juguete 1, con el empleado 1, lo cojo del stand 1, de la zona 1
- * insert into venta(idventa, Fecha, Monto, tipo_pago,JUGUETE_idJuguete, EMPLEADO_idEMPLEADO,STAND_idStand,STAND_ZONA_idzona) 
- *	 VALUES(1, CURRENT_DATE, 1 , 'efectivo', 1, 1, 1, 1); 
- * -- Creo la venta 2, del juguete 1, con el empleado 1, lo cojo del stand 1, de la zona 1
- * insert into venta(idventa, Fecha, Monto, tipo_pago,JUGUETE_idJuguete, EMPLEADO_idEMPLEADO,STAND_idStand,STAND_ZONA_idzona) 
- * 	 VALUES(2, CURRENT_DATE, 315 , 'efectivo', 1, 1, 1, 1);
- * 
- * -- Creo el cambio 1, muevo del stand 2, de la zona 2, el juguete 2, <- hacia -> el stand 1, de la zona 1, el juguete 2, con el empleado 1
- * insert into cambio(idCAMBIO, MOTIVO, Fecha, STOCK_STAND_idStand_Original, STOCK_STAND_ZONA_idzona_Original, STOCK_JUGUETE_idJuguete_Original, STOCK_STAND_idStand_Nuevo, STOCK_STAND_ZONA_idzona_Nuevo, STOCK_JUGUETE_idJuguete_Nuevo, EMPLEADO_idEMPLEADO)
- *   VALUES(1, "Cambio juguete 2 ", CURRENT_DATE, 2, 2, 2, 1, 1, 2, 1);
-*/
 
 public class ConexionBBDD {
 
@@ -103,12 +65,12 @@ public class ConexionBBDD {
 			do {
 				String cargoEmpleado = scanner.nextLine();
 				if (empleadoNuevo.comprobacionCargo(cargoEmpleado)) {
-					if (cargoEmpleado == "jefe") {
-						empleadoNuevo.setCargo(CargoEmpleado.jefe); // Seteo el cargo del empleado nuevo
+					if (cargoEmpleado.equals("jefe")) {
+						empleadoNuevo.setCargo(CargoEmpleado.JEFE); // Seteo el cargo del empleado nuevo
 						banderaCargoEmpleado = 0; // Salgo del bucle
 						cargo = true;
 					} else {
-						empleadoNuevo.setCargo(CargoEmpleado.cajero);
+						empleadoNuevo.setCargo(CargoEmpleado.CAJERO);
 						banderaCargoEmpleado = 0; // Salgo del bucle
 						cargo = true;
 					}
@@ -131,12 +93,12 @@ public class ConexionBBDD {
 
 	}
 
-	public static void insertNuevoEmpleado(Empleado empleadoNuevo) {
+	private static void insertNuevoEmpleado(Empleado empleadoNuevo) {
 		empleadoNuevo.sentenciaNuevoEmpleado(empleadoNuevo, conexion); // Llamo al metodo que esta en Empleado con la sentencia correcta para la insercion del nuevo empleado
 	}
 
 	// Mostrar todos los empleados existentes
-	public static void mostrarTablaEmpleados() {
+	private static void mostrarTablaEmpleados() {
 		try {
 			Empleado consultaTablaEmpleado = new Empleado();
 			ResultSet mostrarEmpleados = consultaTablaEmpleado.mostrarEmpleados(conexion); // Paso de la clase Empleado los datos obtenidos de la consulta, para leerlos en el main
@@ -145,7 +107,7 @@ public class ConexionBBDD {
 				while (mostrarEmpleados.next()) {
 
 					System.out.println("IdEmpleado: " + mostrarEmpleados.getInt("idEMPLEADO") + " | Nombre: "
-							+ mostrarEmpleados.getString("Nombre") + " | Cargo" + mostrarEmpleados.getString("Cargo")
+							+ mostrarEmpleados.getString("Nombre") + " | Cargo: " + mostrarEmpleados.getString("Cargo")
 							+ " | Fecha_Ingreso: " + mostrarEmpleados.getDate("Fecha_Ingreso"));
 				}
 			} else {
@@ -156,6 +118,140 @@ public class ConexionBBDD {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private static void eliminarEmpleado() {
+		Scanner scanner = new Scanner(System.in);
+
+		Empleado eliminarEmpleado = new Empleado();
+		int banderaComprobacionID = 3;
+
+		System.out.println("Introduce el id a eliminar");
+		do {
+			String id = scanner.nextLine();
+
+			if (eliminarEmpleado.comprobacionID(id)) {
+				// Aunque el empleado no existe mysql retorna todos los datos a null, entonces lo paso todo al objeto eliminarEmpleado y compruebo que el id no sea 0, si es 0, se que no existe y cojo el id porque no se repite nunca
+				eliminarEmpleado = eliminarEmpleado.consultarExistenciaEmpleado(Integer.parseInt(id), conexion);
+
+				if (eliminarEmpleado.getIdEmpleado() != 0) {
+					// Si existe, ejecuto la sentencia de eliminacion
+					if (eliminarEmpleado.eliminarEmpleado(Integer.parseInt(id), conexion)) { // Si el metodo retorna true es que se ha borrado
+						System.out.println("Empleado eliminado");
+						System.out.println(eliminarEmpleado.toString());
+						banderaComprobacionID = 0;
+					}
+				} else {
+					System.out
+							.println("Error, el id no existe. Intetelo de nuevo(" + --banderaComprobacionID + "/3): ");
+				}
+
+			} else {
+				System.out.println("Error, has introducido un id no valido. Intentelo de nuevo("
+						+ --banderaComprobacionID + "/3): ");
+			}
+		} while (banderaComprobacionID != 0);
+	}
+
+	private static void modificarDatosEmpleado() {
+
+		Scanner scanner = new Scanner(System.in);
+
+		Empleado modificarEmpleado = new Empleado();
+		int banderaComprobacionID = 3;
+		boolean existeEmpleado = false; // Boolean para separar codigo y que no haya 30 bucles o 30 ifs en un solo bloque
+		boolean campoNombre = false; // Lo mismo que con el existe
+		boolean campoCargo = false;
+
+		System.out.println("Introduce el id del empleado a modificar");
+		do {
+			String idEmpleado = scanner.nextLine();
+			if (modificarEmpleado.comprobacionID(idEmpleado)) {
+				modificarEmpleado = modificarEmpleado.consultarExistenciaEmpleado(Integer.parseInt(idEmpleado),
+						conexion);
+				if (modificarEmpleado.getIdEmpleado() != 0) {
+					existeEmpleado = true; // no puedo usar el banderaComprobacionID como condicion, porque si falla tambien se setea a 0 y se ejecutaria
+					banderaComprobacionID = 0;
+				} else {
+					System.out
+							.println("Error, el id no existe. Intetelo de nuevo(" + --banderaComprobacionID + "/3): ");
+				}
+			} else {
+				System.out.println("Error, el id no existe. Intetelo de nuevo(" + --banderaComprobacionID + "/3): ");
+			}
+		} while (banderaComprobacionID != 0);
+
+		// Si existe el empleado pregunta el campo a modificar
+		if (existeEmpleado) {
+			int banderaComprobacionCampo = 3;
+			System.out.println("Introduce el campo a modificar (Nombre / Cargo): ");
+			do {
+				String campoAModificar = scanner.nextLine();
+				String expReg = "^[a-zA-Z]{5,6}$";
+
+				if (campoAModificar.matches(expReg)) {
+
+					if (campoAModificar.toLowerCase().trim().equals("nombre")) {
+						campoNombre = true;
+					} else if (campoAModificar.toLowerCase().trim().equals("cargo")) {
+						campoCargo = true;
+					}
+
+					banderaComprobacionCampo = 0;
+
+				} else {
+					System.out.println("Error, has introducido un valor incorrecto. Intetelo de nuevo("
+							+ --banderaComprobacionCampo + "/3): ");
+
+				}
+			} while (banderaComprobacionCampo != 0);
+		}
+
+		if (campoNombre) {
+
+			int banderaComprobacionNombre = 3;
+
+			System.out.println("Introduce el nuevo nombre; ");
+			do {
+				String nuevoNombreEmpleado = scanner.nextLine();
+
+				if (modificarEmpleado.comprobacionNombre(nuevoNombreEmpleado)) {
+					modificarEmpleado.setNombre(nuevoNombreEmpleado);
+					banderaComprobacionNombre = 0;
+					System.out.println(modificarEmpleado.toString());
+					modificarEmpleado.sentenciaModificarEmpleado(modificarEmpleado, conexion);
+				} else {
+					System.out.println("Error, has introducido un nombre incorrecto. Intetelo de nuevo("
+							+ --banderaComprobacionNombre + "/3): ");
+				}
+			} while (banderaComprobacionNombre != 0);
+
+		}
+
+		if (campoCargo) {
+
+			int banderaComprobacionCargo = 3;
+
+			System.out.println("Introduce el nuevo cargo (jefe/cajero): ");
+			do {
+				String nuevoCargoEmpleado = scanner.nextLine();
+				if (modificarEmpleado.comprobacionCargo(nuevoCargoEmpleado)) {
+
+					if (nuevoCargoEmpleado.toUpperCase().trim().equals("JEFE")) {
+						modificarEmpleado.setCargo(CargoEmpleado.JEFE);
+					} else {
+						modificarEmpleado.setCargo(CargoEmpleado.CAJERO);
+					}
+					modificarEmpleado.sentenciaModificarEmpleado(modificarEmpleado, conexion);
+					banderaComprobacionCargo = 0;
+
+				} else {
+					System.out.println("Error, has introducido un cargo incorrecto. Intetelo de nuevo("
+							+ --banderaComprobacionCargo + "/3): ");
+				}
+			} while (banderaComprobacionCargo != 0);
+		}
+
 	}
 
 	public static void main(String[] args) {
@@ -171,9 +267,11 @@ public class ConexionBBDD {
 		// Mostrar todos los empleados existentes
 		// mostrarTablaEmpleados();
 
-		Empleado modificarEmpleado = new Empleado();
-		
-		modificarEmpleado.consultarExistenciaEmpleado(3, conexion);
+		// Elimino un empleado por id
+		// eliminarEmpleado();
+
+		// Modifico un empleado por id
+		modificarDatosEmpleado(); // FALTA CONTROL DE ERRORES :)
 
 	}
 

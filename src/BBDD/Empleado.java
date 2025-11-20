@@ -71,7 +71,7 @@ public class Empleado {
 	// Comprobacion de cargo correcto
 	public Boolean comprobacionCargo(String cargo) {
 
-		if (cargo.toLowerCase().trim().equals("cajero") || cargo.toLowerCase().trim().equals("jefe")) {
+		if (cargo.toUpperCase().trim().equals("CAJERO") || cargo.toUpperCase().trim().equals("JEFE")) {
 			return true;
 		}
 		return false;
@@ -79,10 +79,10 @@ public class Empleado {
 	}
 
 	// Comprobacion de id correcto
-	public boolean comprobacionID(int id) {
+	public boolean comprobacionID(String id) {
 
 		final String expReg = "^[0-9]{1,4}$";
-		if (String.valueOf(id).matches(expReg)) {
+		if (id.matches(expReg)) {
 			return true;
 		}
 		return false;
@@ -97,7 +97,7 @@ public class Empleado {
 
 			// Seteo los datos, cogidos de el objeto empleado
 			sentencia.setString(1, empleadoNuevo.getNombre());
-			sentencia.setString(2, empleadoNuevo.getCargo().toString());
+			sentencia.setString(2, empleadoNuevo.getCargo().toString()); // Lo paso a string porque no admite enums y se vera igual
 			sentencia.setDate(3, empleadoNuevo.getFechaIngreso());
 
 			sentencia.executeUpdate(); // Ejecuto la sentencia en update porque añado datos
@@ -113,9 +113,40 @@ public class Empleado {
 
 	}
 
-	public PreparedStatement sentenciaModificarEmpleado(Empleado empleadoNuevo, Connection conexion) {
+	public Boolean eliminarEmpleado(int id, Connection conexion) {
 
-		return null;
+		try {
+			String consulta = "delete empleado from empleado where idEMPLEADO = ?";
+			PreparedStatement sentencia = conexion.prepareStatement(consulta);
+			sentencia.setInt(1, id);
+			sentencia.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+
+	public Boolean sentenciaModificarEmpleado(Empleado empleadoNuevo, Connection conexion) {
+
+		try {
+			String consulta = "update empleado SET Nombre = ?, Cargo = ?  where idEMPLEADO = ?";
+			PreparedStatement sentencia = conexion.prepareStatement(consulta);
+			sentencia.setString(1, empleadoNuevo.getNombre());
+			sentencia.setString(2, empleadoNuevo.getCargo().toString());
+			sentencia.setInt(3, empleadoNuevo.getIdEmpleado());
+			sentencia.executeUpdate();
+
+			return true;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+		return false;
 	}
 
 	// Consulta para mostrar todos los empleados
@@ -149,9 +180,8 @@ public class Empleado {
 				empleadoModificar.setNombre(comprobarExistencia.getString("Nombre"));
 
 				// Como el cargo es un enum, no puedo hacer un seteo de un string a un enum, entonces lo seteo en un string y el string lo paso a enum
-				String cargoEnum = comprobarExistencia.getString("Cargo");
-				CargoEmpleado cargo = CargoEmpleado.valueOf(cargoEnum);
-				empleadoModificar.setCargo(cargo);
+				String cargoEnum = comprobarExistencia.getString("Cargo").toUpperCase(); // Como lo coje de la BD esta en minusculas y en el enum en mayusculas, si no pongo el upper daria error
+				empleadoModificar.setCargo(CargoEmpleado.valueOf(cargoEnum));
 
 				empleadoModificar.setFechaIngreso(comprobarExistencia.getDate("Fecha_ingreso"));
 
@@ -166,6 +196,12 @@ public class Empleado {
 
 		return null;
 
+	}
+
+	@Override
+	public String toString() {
+		return "IdEmpleado: " + idEmpleado + " | Nombre: " + nombre + " | Cargo: " + cargo + " | Fecha_Ingreso: "
+				+ fechaIngreso;
 	}
 
 }
