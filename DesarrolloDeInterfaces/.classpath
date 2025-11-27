@@ -11,5 +11,8 @@
 			<attribute name="javadoc_location" value="jar:platform:/resource/DesarrolloDeInterfaces/src/tema2/Ventanas/jsoup-1.21.2-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/DAM/Downloads/javax.mail-api-1.6.2-javadoc.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DAM/Downloads/javax.mail.jar"/>
+	<classpathentry kind="lib" path="C:/Users/DAM/Downloads/activation-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
